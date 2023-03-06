@@ -1,0 +1,12 @@
+name: bank-of-anthos-pulumi
+description: A Google Kubernetes Engine (GKE) cluster running the Bank of Anthos application
+runtime: nodejs
+template:
+  config:
+    gcp:project:
+      description: The Google Cloud project to deploy into
+    gcp:zone:
+      description: The Google Cloud zone
+    password:
+      description: Your cluster password
+      secret: true
