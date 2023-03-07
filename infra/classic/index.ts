@@ -2,7 +2,7 @@
 
 import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
-import { k8sConfig, k8sProvider } from "./cluster";
+import { k8sConfig, k8sProvider } from "./k8s-cluster";
 
 // Create a canary deployment to test that this cluster works.
 const name = `${pulumi.getProject()}-${pulumi.getStack()}`;
@@ -16,7 +16,7 @@ const canary = new k8s.apps.v1.Deployment("canary", {
             spec: { containers: [{ name, image: "nginx" }] },
         },
     },
-}, { provider: k8sProvider });
+}, { provider: k8sProvider }); 
 
 // Export the Kubeconfig so that clients can easily access our cluster.
 export let kubeConfig = k8sConfig;

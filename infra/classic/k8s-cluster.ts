@@ -18,7 +18,7 @@ const cluster = new gcloud.container.Cluster("bank-of-anthos", {
 
 // Manufacture a GKE-style Kubeconfig. Note that this is slightly "different" because of the way GKE requires
 // gcloud to be in the picture for cluster authentication (rather than using the client cert/key directly).
-export const kubeConfig = pulumi
+export const k8sConfig = pulumi
     .all([cluster.name, cluster.endpoint, cluster.location, cluster.masterAuth])
     .apply(([name, endpoint, location, auth]) => {
         const context = `${config.projectId}_${location}_${name}`;
@@ -39,22 +39,17 @@ preferences: {}
 users:
 - name: ${context}
   user:
-    exec:
-      apiVersion: client.authentication.k8s.io/v1beta1
-      command: gke-gcloud-auth-plugin
-      installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
-        https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
-      provideClusterInfo: true
+    auth-provider:
+      config:
+        cmd-args: config config-helper --format=json
+        cmd-path: gcloud
+        expiry-key: '{.credential.token_expiry}'
+        token-key: '{.credential.access_token}'
+      name: gcp
 `;
     });
 
 // Export a Kubernetes provider instance that uses our cluster from above.
-export const provider = new k8s.Provider(
-    "gke-k8s",
-    {
-        kubeconfig: kubeConfig,
-    },
-    {
-        dependsOn: [cluster],
-    }
-);
+export const k8sProvider = new k8s.Provider("gkeK8s", {
+  kubeconfig: k8sConfig,
+});
