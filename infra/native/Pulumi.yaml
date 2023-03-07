@@ -1,0 +1,3 @@
+name: bank-of-anthos-pulumi
+description: A Google Kubernetes Engine (GKE) cluster running the Bank of Anthos application
+runtime: nodejs

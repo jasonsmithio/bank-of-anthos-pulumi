@@ -1,31 +1,16 @@
-import * as gcloud from "@pulumi/google-native";
+import * as gcloud from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
 import * as config from "./config";
 
-const cluster = new gcloud.container.v1.Cluster("cluster", {
+const cluster = new gcloud.container.Cluster("bank-of-anthos", {
+    enableAutopilot: true,
     location: config.region,
-    autopilot: { enabled: true },
     project: config.projectId,
     releaseChannel: {
-        channel: gcloud.container.v1.ReleaseChannelChannel.Regular,
+        channel: 'REGULAR',
     },
-    nodePools: [
-        {
-            name: "initial",
-            config: {
-                oauthScopes: [
-                    "https://www.googleapis.com/auth/devstorage.read_only",
-                    "https://www.googleapis.com/auth/logging.write",
-                    "https://www.googleapis.com/auth/monitoring",
-                    "https://www.googleapis.com/auth/service.management.readonly",
-                    "https://www.googleapis.com/auth/servicecontrol",
-                    "https://www.googleapis.com/auth/trace.append",
-                    "https://www.googleapis.com/auth/compute",
-                ],
-            },
-        },
-    ],
+    
     workloadIdentityConfig: {
         workloadPool: `${config.projectId}.svc.id.goog`,
     },

@@ -1,0 +1,12 @@
+{
+    "name": "bank-of-anthos-pulumi",
+    "devDependencies": {
+        "@types/node": "^17.0.17"
+    },
+    "dependencies": {
+    "@pulumi/gcp": "^6.11.0",
+    "@pulumi/kubernetes": "^3.15.2",
+    "@pulumi/pulumi": "^3.24.1",
+    "@pulumi/random": "^4.3.1"
+    }
+}

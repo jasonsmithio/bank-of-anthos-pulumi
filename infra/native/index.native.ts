@@ -1,12 +1,12 @@
 import { readFileSync } from "fs";
-import * as docker from "@pulumi/docker";
+//import * as docker from "@pulumi/docker";
 import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
-import * as cluster from "./k8s";
+import * as cluster from "./k8s-cluster";
 import * as config from "./config";
 import * as db from "./db";
 import * as iam from "./iam";
-import { dockerRegistry, dockerRegistryId } from "./artifact-registry";
+//import { dockerRegistry, dockerRegistryId } from "./artifact-registry";
 import { execSync } from "child_process";
 
 // Tag images as name:${projectVersion}-${gitHash}

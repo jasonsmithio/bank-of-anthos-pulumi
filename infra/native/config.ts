@@ -8,6 +8,7 @@ const config = new Config();
 export const projectId = config.require("projectId");
 export const region = config.require("region");
 
+
 /// App config
 export const appPort = parseInt(config.require("appPort"));
 

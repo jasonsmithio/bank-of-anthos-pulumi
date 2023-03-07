@@ -1,4 +1,4 @@
-import * as gcloud from "@pulumi/google-native";
+import * as gcloud from "@pulumi/gcp";
 import * as random from "@pulumi/random";
 import * as config from "./config";
 
