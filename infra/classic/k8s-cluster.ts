@@ -3,10 +3,19 @@ import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
 import * as config from "./config";
 
+//const ip_allocation_policy = new gcloud.container.ClusterIpAllocationPolicy();
+
+
 const cluster = new gcloud.container.Cluster("bank-of-anthos", {
     enableAutopilot: true,
-    location: config.zone,
+    location: config.region,
     project: config.projectId,
+    network: config.network,
+    ipAllocationPolicy: {
+      clusterIpv4CidrBlock: "",
+      servicesIpv4CidrBlock: "",
+    },
+
     releaseChannel: {
         channel: 'STABLE',
     },
