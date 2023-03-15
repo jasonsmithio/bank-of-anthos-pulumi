@@ -8,10 +8,11 @@ const config = new Config();
 
 export const projectId = config.require("projectId");
 export const region = config.require("region");
+export const zone = config.require("zone");
 
 
 /// App config
-export const appPort = parseInt(config.require("appPort"));
+//export const appPort = parseInt(config.require("appPort"));
 
 /// Kubernetes config
 export const k8sNamespace = config.get("k8sNamespace") || "default";

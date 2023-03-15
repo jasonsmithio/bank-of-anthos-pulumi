@@ -5,15 +5,15 @@ import * as config from "./config";
 
 const cluster = new gcloud.container.Cluster("bank-of-anthos", {
     enableAutopilot: true,
-    location: config.region,
+    location: config.zone,
     project: config.projectId,
     releaseChannel: {
-        channel: 'REGULAR',
+        channel: 'STABLE',
     },
-    
-    workloadIdentityConfig: {
-        workloadPool: `${config.projectId}.svc.id.goog`,
-    },
+     
+//    workloadIdentityConfig: {
+//        workloadPool: `${config.projectId}.svc.id.goog`,
+//    },
 });
 
 // Manufacture a GKE-style Kubeconfig. Note that this is slightly "different" because of the way GKE requires
