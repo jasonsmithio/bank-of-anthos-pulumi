@@ -24,7 +24,7 @@ const cluster = new gcloud.container.Cluster("bank-of-anthos", {
 
 // Manufacture a GKE-style Kubeconfig. Note that this is slightly "different" because of the way GKE requires
 // gcloud to be in the picture for cluster authentication (rather than using the client cert/key directly).
-export const k8sConfig = pulumi
+export const kubeconfig = pulumi
     .all([cluster.name, cluster.endpoint, cluster.location, cluster.masterAuth])
     .apply(([name, endpoint, location, auth]) => {
         const context = `${config.projectId}_${location}_${name}`;
@@ -56,14 +56,18 @@ users:
     });
 
 // Export a Kubernetes provider instance that uses our cluster from above.
-export const k8sProvider = new k8s.Provider("gkeK8s", {
-  kubeconfig: k8sConfig,
+export const k8sProvider = new k8s.Provider("k8sProvider", {
+  kubeconfig: kubeconfig,
 });
 
 const Istio = new k8s.yaml.ConfigGroup("istio", {
   files: [path.join("../../apps/istio-manifests", "*.yaml")],
+}, {
+  providers: {"kubernetes": k8sProvider }
 });
 
 const bankOfAnthos = new k8s.yaml.ConfigGroup("bankOfAnthos", {
   files: [path.join("../../apps/kubernetes-manifests", "*.yaml")],
+}, {
+  providers: { "kubernetes": k8sProvider }
 });
