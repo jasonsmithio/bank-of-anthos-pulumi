@@ -2,6 +2,7 @@ import * as gcloud from "@pulumi/gcp";
 import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
 import * as config from "./config";
+import * as path from "path";
 
 //const ip_allocation_policy = new gcloud.container.ClusterIpAllocationPolicy();
 
@@ -11,11 +12,7 @@ const cluster = new gcloud.container.Cluster("bank-of-anthos", {
     location: config.region,
     project: config.projectId,
     network: config.network,
-    ipAllocationPolicy: {
-      clusterIpv4CidrBlock: "",
-      servicesIpv4CidrBlock: "",
-    },
-
+    ipAllocationPolicy: {},
     releaseChannel: {
         channel: 'STABLE',
     },
@@ -61,4 +58,9 @@ users:
 // Export a Kubernetes provider instance that uses our cluster from above.
 export const k8sProvider = new k8s.Provider("gkeK8s", {
   kubeconfig: k8sConfig,
+});
+
+
+const bankOfAnthos = new k8s.yaml.ConfigGroup("apps", {
+  files: [path.join("yaml", "*.yaml")],
 });
