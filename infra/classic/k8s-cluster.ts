@@ -60,7 +60,10 @@ export const k8sProvider = new k8s.Provider("gkeK8s", {
   kubeconfig: k8sConfig,
 });
 
+const Istio = new k8s.yaml.ConfigGroup("istio", {
+  files: [path.join("../../apps/istio-manifests", "*.yaml")],
+});
 
-const bankOfAnthos = new k8s.yaml.ConfigGroup("apps", {
-  files: [path.join("yaml", "*.yaml")],
+const bankOfAnthos = new k8s.yaml.ConfigGroup("bankOfAnthos", {
+  files: [path.join("../../apps/kubernetes-manifests", "*.yaml")],
 });
