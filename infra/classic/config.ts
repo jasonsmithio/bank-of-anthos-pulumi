@@ -16,13 +16,13 @@ export const network = config.require("network");
 //export const appPort = parseInt(config.require("appPort"));
 
 /// Kubernetes config
-export const k8sNamespace = config.get("k8sNamespace") || "default";
-export const k8sServiceAccountName = new random.RandomPet(
+//export const k8sNamespace = config.get("k8sNamespace") || "default";
+/*export const k8sServiceAccountName = new random.RandomPet(
     "k8sServiceAccountName",
     { length: 2 }
-).id;
+).id;*/
 
-export const username = config.get("username") || "admin";
+/*export const username = config.get("username") || "admin";
 
 // password is the password for the admin user in the cluster.
 // If a password is not set, a strong random password will be generated.
@@ -32,4 +32,4 @@ export const password = config.get("password") || new random.RandomPassword(
 // GKE master version
 // Default to the latest available version.
 export const masterVersion = config.get("masterVersion") ||
-    gcp.container.getEngineVersions().then(it => it.latestMasterVersion);
+    gcp.container.getEngineVersions().then(it => it.latestMasterVersion);*/
