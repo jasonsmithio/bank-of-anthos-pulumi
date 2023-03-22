@@ -48,3 +48,8 @@ npm install
 We are operating under the assumption that you have already signed up for your [Pulumi](https://www.pulumi.com/docs/get-started/gcp/) Account AND have the [Pulumi CLI](https://www.pulumi.com/docs/get-started/install/) installed and configured. If not, do that before moving forward.
 
 Now you should only have to run `pulumi up` to deploy
+
+
+### Support
+
+If you need help, feel free to open an issue and I will get to it as soon as possible. You can also ping me on [Mastodon](https://hachyderm.io/@jasonsmithio@hachyderm.io) or [Twitter](https://twitter.com/jasonsmithio).
