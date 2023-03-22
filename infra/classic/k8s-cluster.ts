@@ -4,8 +4,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as config from "./config";
 import * as path from "path";
 
-//const ip_allocation_policy = new gcloud.container.ClusterIpAllocationPolicy();
-
 const name = "bank-of-anthos";
 
 const cluster = new gcloud.container.Cluster(name, {
@@ -17,10 +15,6 @@ const cluster = new gcloud.container.Cluster(name, {
     releaseChannel: {
         channel: 'STABLE',
     },
-     
-//    workloadIdentityConfig: {
-//        workloadPool: `${config.projectId}.svc.id.goog`,
-//    },
 });
 
 
@@ -66,18 +60,3 @@ export const k8sProvider = new k8s.Provider(name, {
   dependsOn: [cluster]
 });
 
-/*const Istio = new k8s.yaml.ConfigGroup("istio", {
-  files: [path.join("../../apps/istio-manifests", "*.yaml")],
-}, {
-  providers: {"kubernetes": k8sProvider }
-});*/
-
-/*const bankOfAnthos = new k8s.yaml.ConfigGroup("bankOfAnthos", {
-  files: [path.join("../../apps/kubernetes-manifests", "*.yaml")],
-}, {
-  providers: { "kubernetes": k8sProvider }
-});*/
-
-/*const example = new k8s.yaml.ConfigGroup("example", {
-  files: [path.join("../../apps/istio-manifests", "*.yaml")],
-});*/

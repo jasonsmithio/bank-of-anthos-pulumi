@@ -7,37 +7,22 @@ import * as path from "path";
 
 
 // Create a canary deployment to test that this cluster works.
-const name = `${pulumi.getProject()}-${pulumi.getStack()}`;
-//const canaryLabels = { app: `canary-${name}` };
-//const canary = new k8s.apps.v1.Deployment("canary", {
-//    spec: {
-//       selector: { matchLabels: canaryLabels },
-//        replicas: 1,
-//        template: {
-//            metadata: { labels: canaryLabels },
-//            spec: { containers: [{ name, image: "nginx" }] },
-//        },
-//    },
-//}, { provider: k8sProvider }); 
+//const name = `${pulumi.getProject()}-${pulumi.getStack()}`;
 
-// Export the Kubeconfig so that clients can easily access our cluster.
-
-const ns = new k8s.core.v1.Namespace(name, {}, { provider: k8sProvider });
 
 export let kubeConfig = kubeconfig;
 
-/*const istio = new k8s.yaml.ConfigGroup("istio", {
-  files: [path.join("../../apps/istio-manifests/", "*.yaml")],
+const jwtSecret = new k8s.yaml.ConfigFile("jwtSecret", {
+  file: "../../apps/extras/jwt/jwt-secret.yaml",
 }, {
-  providers: {"kubernetes": k8sProvider }
-});*/
-
-const istio = new k8s.yaml.ConfigFile("istio", {
-    file: "https://raw.githubusercontent.com/GoogleCloudPlatform/bank-of-anthos/main/istio-manifests/frontend-ingress.yaml" ,
-}, {
-    providers: { "kubernetes": k8sProvider }
+  provider: k8sProvider,
 });
 
-/*const example = new k8s.yaml.ConfigGroup("example", {
-    files: [path.join("../../apps/istio-manifests", "*.yaml")],
-});*/
+
+
+const bankOfAnthos = new k8s.yaml.ConfigGroup("bankOfAnthos", {
+  files: [path.join("../../apps/kubernetes-manifests/", "*.yaml")],
+}, {
+  provider: k8sProvider,
+});
+
