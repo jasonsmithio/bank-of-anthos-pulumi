@@ -14,15 +14,37 @@ In this demo, we will build a GKE Autopilot cluster and then deploy Bank of Anth
 
 ### Prerequisites
 
-It should go without saying but you do need a Google Cloud and a Pulumi account. If you haven't set up either, I have some links that can help you with both [Google Cloud](https://cloud.google.com/docs/get-started) and [Pulumi](https://www.pulumi.com/docs/get-started/gcp/). Both services have generous free tiers so don't worry about running this test.
+It should go without saying but you do need a Google Cloud and a Pulumi account. If you haven't set up either, I have some links that can help you [create a Google Cloud project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project) and [Pulumi](https://www.pulumi.com/docs/get-started/gcp/). Both services have generous free tiers so don't worry about running this test.
 
-Make sure that you install [gcloud CLI](https://cloud.google.com/sdk/docs/install) and then run `gcloud components install kubectl` for Google Cloud as well as the [Pulumi CLI](https://www.pulumi.com/docs/get-started/install/).
+Make sure that you install [gcloud CLI](https://cloud.google.com/sdk/docs/install) and then run `gcloud components install kubectl` for Google Cloud as well as the [Pulumi CLI](https://www.pulumi.com/docs/get-started/install/). We also use TypeScript and Node so make sure you have [Node.js and NPM installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 ### Staging your Machine
 
-First let's download some code.
+1. Setup your Google Cloud Project
+
+```bash
+PROJECT_ID="YOUR PROJECT ID"
+gcloud config set project $PROJECT_ID
+gcloud services enable container --project ${PROJECT_ID}
+gcloud components install kubectl #if you haven't already
+```
+
+2. Clone our GitHub repository
 
 ```bash
 git clone https://github.com/jasonsmithio/bank-of-anthos-pulumi.git
 cd bank-of-anthos-pulumi
 ```
+
+3. Install your Node Modules
+
+```bash
+cd infra/classic/
+npm install
+```
+
+### Pulumi Time
+
+We are operating under the assumption that you have already signed up for your [Pulumi](https://www.pulumi.com/docs/get-started/gcp/) Account AND have the [Pulumi CLI](https://www.pulumi.com/docs/get-started/install/) installed and configured. If not, do that before moving forward.
+
+Now you should only have to run `pulumi up` to deploy
