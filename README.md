@@ -50,6 +50,15 @@ We are operating under the assumption that you have already signed up for your [
 Now you should only have to run `pulumi up` to deploy
 
 
+### Check out Google Cloud 
+
+Go to [cloud.google.com](https://cloud.google.com) and navigate to "Kubernetes Engine". You should see your cluster. Go to "Services" and click on the IP Address.
+
+###  Please Delete Resources and Save Money
+
+No one wants a surprise bill so be sure to delete the resources with a `pulumi destroy` command.
+
+
 ### Support
 
 If you need help, feel free to open an issue and I will get to it as soon as possible. You can also ping me on [Mastodon](https://hachyderm.io/@jasonsmithio@hachyderm.io) or [Twitter](https://twitter.com/jasonsmithio).
